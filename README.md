@@ -1,4 +1,6 @@
-# Docker images
+# Docker info
+
+## Docker images
 ```bash
 docker pull mongo:3.4.10
 docker pull redis:4.0.6-alpine
