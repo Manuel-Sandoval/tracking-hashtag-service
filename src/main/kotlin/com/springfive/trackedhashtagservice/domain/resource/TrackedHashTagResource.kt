@@ -7,14 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import com.springfive.trackedhashtagservice.domain.models.TrackedHashTag
+import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/api/tracked-hash-tag")
 class TrackedHashTagResource (private val service:TrackedHashTagService) {
 	
 	@GetMapping
-	fun all() = this.service.all();
+	fun all() = this.service.all()
 	
 	@PostMapping
-	fun save(@RequestBody hashTag: TrackedHashTag) = this.service.save(hashTag)
+	fun save(@RequestBody hashTag: TrackedHashTag): Mono<TrackedHashTag> {
+		return this.service.save(hashTag)
+	}
 }

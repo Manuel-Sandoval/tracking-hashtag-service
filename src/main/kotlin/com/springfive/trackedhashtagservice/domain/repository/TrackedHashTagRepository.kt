@@ -9,6 +9,7 @@ import reactor.core.publisher.Flux
 @Service
 class TrackedHashTagRepository (private val redisTemplate: ReactiveRedisTemplate<String, String>) {
 	
+	
 	fun save(trackedHashTag: TrackedHashTag): Mono<TrackedHashTag> {
 		return this.redisTemplate
 				   .opsForSet()
@@ -19,8 +20,9 @@ class TrackedHashTagRepository (private val redisTemplate: ReactiveRedisTemplate
 	fun findAll(): Flux<TrackedHashTag> {
 		return this.redisTemplate
 				   .opsForSet()
-				   .members("hashtags")
+				   .members("hash-tags")
 				   .flatMap { el ->
+					   println(el)
 					   val data = el.split(":")
 					   Flux.just(TrackedHashTag(hashTag = data[0], queue = data[1]))
 				   }
